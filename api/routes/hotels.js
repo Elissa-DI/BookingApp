@@ -5,7 +5,7 @@ const router = express.Router();
 
 //CREATE
 router.post("/", async (req, res) => {
-    const newHotel = new HotelSchema(req.body);
+    const newHotel = new Hotel(req.body);
     try {
         const savedHotel = await newHotel.save();
         res.status(200).json(savedHotel);
@@ -30,7 +30,8 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
     try {
         await Hotel.findByIdAndDelete(
-              req.params.id);
+              req.params.id
+            );
         res.status(200).json("Hotel has been deleted!");
     } catch (error) {
         res.status(500).json(error);
@@ -47,7 +48,7 @@ router.put("/:id", async (req, res) => {
     }
 });
 //GET ALL
-router.put("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try {
         const hotels = await Hotel.find();
         res.status(200).json(hotels);
